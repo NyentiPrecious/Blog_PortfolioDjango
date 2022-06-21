@@ -1,0 +1,506 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Home</title>
+</head>
+<style>
+    /* h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+    body {font-family: "Open Sans"} */
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+body, html {
+  height: 100%;
+  line-height: 1.8;
+}
+    .bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url(" {% static '/images/a.avif' %}");
+  min-height: 100%;
+}
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 500px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 30px;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+#regForm {
+  background-color: #1b1919;
+  margin: 100px auto;
+  font-family: Raleway;
+  padding: 40px;
+  width: 70%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: center;  
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  font-family: Raleway;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #04AA6D;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  font-family: Raleway;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+    </style>
+<body>
+    
+       <!-- Navigation bar with social media icons -->
+<!-- <div class="w3-bar w3-black w3-hide-small">
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-facebook-official"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-instagram"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-snapchat"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-flickr"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-twitter"></i></a>
+    <a href="#" class="w3-bar-item w3-button"><i class="fa fa-linkedin"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-right"><i class="fa fa-search"></i></a>
+  </div>   -->
+
+  <!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-card" id="myNavbar">
+      <a href="#home" class="w3-bar-item w3-button w3-wide">NPG</a>
+      <!-- Right-sided navbar links -->
+      <div class="w3-right w3-hide-small">
+        <a href="#about" class="w3-bar-item w3-button">ABOUT</a>
+        <a href="Main" class="w3-bar-item w3-button"><i class="fa fa-user"></i> Home </a>
+        <!-- <a href="#work" class="w3-bar-item w3-button"><i class="fa fa-th"></i> WORK</a>
+        <a href="#pricing" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> PRICING</a> -->
+        <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+      </div>
+      <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+  
+      <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+  </div>
+  
+  <!-- Sidebar on small screens when clicking the menu icon -->
+  <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
+    <a href="Main" onclick="w3_close()" class="w3-bar-item w3-button">HOME</a>
+    <!-- <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">WORK</a>
+    <a href="#pricing" onclick="w3_close()" class="w3-bar-item w3-button">PRICING</a> -->
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+  </nav>
+  
+  <!-- Header with full-height image -->
+  <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+    <div class="w3-display-left w3-text-white" style="padding:48px">
+      <span class="w3-jumbo w3-hide-small">Start something that matters</span><br>
+      <span class="w3-xxlarge w3-hide-large w3-hide-medium">Start something that matters</span><br>
+      <span class="w3-large">Stop wasting valuable time with projects that just isn't you.</span>
+      <p><a href="Main" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity 
+        w3-hover-opacity-off">Learn more and start today</a></p>
+    </div> 
+    
+    <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
+      <!-- <i class="fa fa-facebook-official w3-hover-opacity"></i>
+      <i class="fa fa-instagram w3-hover-opacity"></i>
+      <i class="fa fa-snapchat w3-hover-opacity"></i>
+      <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+      <i class="fa fa-twitter w3-hover-opacity"></i>
+      <i class="fa fa-linkedin w3-hover-opacity"></i> -->
+      <h6><button class="w3-button w3-white w3-padding-large w3-large w3-opacity w3-hover-opacity-off" 
+        onclick="document.getElementById('subscribe').style.display='block'">SUBSCRIBE</button></h6>
+    </div>
+  </header>
+
+  <!-- About Section -->
+<div class="w3-container" style="padding:128px 16px" id="about">
+    <h3 class="w3-center">ABOUT THE COMPANY</h3>
+    <p class="w3-center w3-large">Key features of our company</p>
+    <div class="w3-row-padding w3-center" style="margin-top:64px">
+      <div class="w3-quarter">
+        <i class="fa fa-desktop w3-margin-bottom w3-jumbo w3-center"></i>
+        <p class="w3-large">Effective</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+      </div>
+      <div class="w3-quarter">
+        <i class="fa fa-heart w3-margin-bottom w3-jumbo"></i>
+        <p class="w3-large">Passion</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+      </div>
+      <div class="w3-quarter">
+        <i class="fa fa-diamond w3-margin-bottom w3-jumbo"></i>
+        <p class="w3-large">Design</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+      </div>
+      <div class="w3-quarter">
+        <i class="fa fa-cog w3-margin-bottom w3-jumbo"></i>
+        <p class="w3-large">Support</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
+      </div>
+    </div>
+
+    <div class="w3-container " style="padding:128px 106px; display: flex; justify-content: space-between; " >
+        <div class="w3-row-padding">
+       
+          <!-- <div style="margin-top: 4rem;" class="w3-col m6"> -->
+    <h1> CREATE YOUR OWN PORTFOLIO </h1>
+          
+       
+    <form id="regForm" action="/action_page.php">
+        <h1>Create Here:</h1>
+        <!-- One "tab" for each step in the form: -->
+        <div class="tab">Name:
+          <p><input placeholder="First name..." oninput="this.className = ''" name="fname"></p>
+          <p><input placeholder="Last name..." oninput="this.className = ''" name="lname"></p>
+        </div>
+        <div class="tab">Contact Info:
+          <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
+          <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
+        </div>
+        <div class="tab">Birthday:
+          <p><input placeholder="dd" oninput="this.className = ''" name="dd"></p>
+          <p><input placeholder="mm" oninput="this.className = ''" name="nn"></p>
+          <p><input placeholder="yyyy" oninput="this.className = ''" name="yyyy"></p>
+        </div>
+        <div class="tab">Education:
+          <p><input placeholder="Previous..." oninput="this.className = ''" name="uname"></p>
+          <p><input placeholder="Present..." oninput="this.className = ''" name="pword" type="password"></p>
+        </div>
+        <div style="overflow:auto;">
+          <div style="float:right;">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+          </div>
+        </div>
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align:center;margin-top:40px;">
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+        </div>
+      </form>
+    
+
+<button class="open-button" onclick="openForm()"><h2 style="color: orange;" >Upload Portfolio</h2></button>
+
+<div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>Upload Portfolio</h1>
+
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Name</b></label>
+    <input type="password" placeholder="Name" name="psw" required>
+
+    <input type="file" id="myFile" name="filename">
+    <input type="submit">
+
+    <button type="submit" class="btn">Upload</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+          </div>
+        </div>
+    
+
+  </div>
+  
+  <!-- Promo Section - "We know design" -->
+  <div class="w3-container w3-light-grey" style="padding:128px 16px">
+    <div class="w3-row-padding">
+      <div class="w3-col m6">
+        <h3>We know design.</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod<br>tempor incididunt ut labore et dolore.</p>
+        <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th"> </i> View Our Works</a></p>
+      </div>
+      <div class="w3-col m6">
+         <!-- Subscribe -->
+      <div class="w3-white w3-margin">
+        <div class="w3-container w3-padding w3-black">
+          <h4>Subscribe</h4>
+        </div>
+        <div class="w3-container w3-white">
+          <p>Enter your e-mail below and get notified on the latest blog posts.</p>
+          <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
+          <p><button type="button" onclick="document.getElementById('subscribe').style.display='block'" class="w3-button w3-block w3-red">Subscribe</button></p>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Promo Section "Statistics" -->
+<div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
+    <div class="w3-quarter">
+      <span class="w3-xxlarge">14+</span>
+      <br>Partners
+    </div>
+    <div class="w3-quarter">
+      <span class="w3-xxlarge">55+</span>
+      <br>Projects Done
+    </div>
+    <div class="w3-quarter">
+      <span class="w3-xxlarge">89+</span>
+      <br>Happy Clients
+    </div>
+    <div class="w3-quarter">
+      <span class="w3-xxlarge">150+</span>
+      <br>Meetings
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+<div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact">
+    <h3 class="w3-center">CONTACT</h3>
+    <p class="w3-center w3-large">Lets get in touch. Send us a message:</p>
+    <div style="margin-top:48px">
+      <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin-right"></i> Cameroon, Africa</p>
+      <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin-right"></i> Phone: +237 ... </p>
+      <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin-right"> </i> Email: name@g`mail.com</p>
+      <br>
+      <form action="/action_page.php" target="_blank">
+        <p><input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Subject" required name="Subject"></p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p>
+        <p>
+          <button class="w3-button w3-black" type="submit">
+            <i class="fa fa-paper-plane"></i> SEND MESSAGE
+          </button>
+        </p>
+      </form>
+      <!-- Image of location/map -->
+      
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="w3-center w3-black w3-padding-64">
+    <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+    <div class="w3-xlarge w3-section">
+      <i class="fa fa-facebook-official w3-hover-opacity"></i>
+      <i class="fa fa-instagram w3-hover-opacity"></i>
+      <i class="fa fa-snapchat w3-hover-opacity"></i>
+      <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+
+    <!-- Subscribe Modal -->
+<div id="subscribe" class="w3-modal w3-animate-opacity">
+    <div class="w3-modal-content" style="padding:32px">
+      <div class="w3-container w3-white">
+        <i onclick="document.getElementById('subscribe').style.display='none'" class="fa fa-remove w3-transparent w3-button w3-xlarge w3-right"></i>
+        <h2 class="w3-wide">SUBSCRIBE</h2>
+        <p>Join my mailing list to receive updates on the latest blog posts and other things.</p>
+        <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+        <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('subscribe').style.display='none'">Subscribe</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+    }
+    
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
+
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // This function will display the specified tab of the form...
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  //... and fix the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").innerHTML = "Submit";
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+  //... and run a function that will display the correct step indicator:
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // This function will figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form...
+  if (currentTab >= x.length) {
+    // ... the form gets submitted:
+    document.getElementById("regForm").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class on the current step:
+  x[n].className += " active";
+}
+
+    </script>
+    
+
+</body>
+</html>
